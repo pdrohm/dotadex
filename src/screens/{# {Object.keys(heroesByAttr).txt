@@ -1,0 +1,31 @@
+{# {Object.keys(heroesByAttr).map((primaryAttr) => (
+<div key="{primaryAttr}" className="flex justify-start flex-col">
+  <h2>{primaryAttr}</h2>
+  <div className="flex flex-wrap gap-2">
+    {heroesByAttr[primaryAttr].map((hero) => (
+    <HeroCard key="{hero.id}" hero="{hero}" />
+    ))}
+  </div>
+</div>
+))} #}
+
+
+  const [heroesByAttr, setHeroesByAttr] = useState<{ [key: string]: Hero[] }>(
+    {}
+  );
+
+ const groupedData: { [key: string]: Hero[] } = {};
+
+        response.forEach((item: Hero) => {
+          const primaryAttr = item.primary_attr;
+
+          // Check if the primary attribute key exists in the groupedData object
+          if (!groupedData[primaryAttr]) {
+            // If not, initialize it as an empty array
+            groupedData[primaryAttr] = [];
+          }
+
+          // Push the item into the corresponding group
+          groupedData[primaryAttr].push(item);
+          setHeroesByAttr(groupedData);
+        });
